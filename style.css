@@ -1,0 +1,84 @@
+/* Add your css styles here. Plagiarism will NOT be tolerated! */
+.container__section{
+    height: 50%;
+    width: auto;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);  
+    position: relative;
+    
+}
+.none{
+  visibility: hidden !important;
+}
+
+.container__sub{
+  height: 60%;
+  width: auto;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);  
+  position: relative;
+}
+
+*{
+  font-family: 'Lato', sans-serif;
+}
+
+.cover__image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn__primary{
+  display: inline-block;
+  border: 1px solid grey;
+  padding: .5rem;
+  cursor: pointer;
+}
+
+.header{
+  font-family: 'Lato', sans-serif;
+  margin: 1rem 5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.subcategory{
+  box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem;
+}
+
+
+.bag{
+  margin: .3rem !important;
+  display: block !important;
+}
+
+.event__list{
+  margin: 7rem 0;
+display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+}
+.sub__card{
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+.content{
+  height: 80%;
+  background-color: red;
+}
+
+.all__events{
+  display: flex;
+  justify-content: space-around;
+}
+
+.subcategory{
+  display: flex;
+}
+
+.book__event{
+  z-index: 100;
+}

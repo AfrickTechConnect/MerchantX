@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import models from '../models';
-import { serverResponse } from '../helpers';
+import { serverResponse, serverError } from '../helpers';
 
 const { User } = models;
 
@@ -28,7 +28,7 @@ const verifyToken = async (request, response, next) => {
     response.locals.token = token;
     next();
   } catch (err) {
-    return serverResponse(response, 401, { message: err.name });
+    return serverError(request, response, err.message === 'jwt expired' ? 'kindly login again' : err);
   }
 };
 

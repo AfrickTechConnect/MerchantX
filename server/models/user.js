@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -6,9 +7,16 @@ export default (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING
   }, {});
-  User.associate = function(models) {
+  User.associate = function (models) {
     User.hasMany(models.UserFollower, {
-      foreignKey: 'userId'
+      foreignKey: 'userId',
+      onDelete: 'CASCADE',
+      as: 'AllFollowers'
+    });
+    User.hasMany(models.UserFollower, {
+      foreignKey: 'followerId',
+      onDelete: 'CASCADE',
+      as: 'AllFollowings'
     });
   };
 

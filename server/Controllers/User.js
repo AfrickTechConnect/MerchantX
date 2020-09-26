@@ -1,11 +1,11 @@
 import bcrypt from 'bcryptjs';
-import Debug from 'debug';
 import models from '../models';
-import { 
-     generateToken,
-     serverResponse,
-     serverError } 
-     from '../helpers';
+import {
+  generateToken,
+  serverResponse,
+  serverError
+}
+  from '../helpers';
 
 const { User } = models;
 /**
@@ -13,7 +13,7 @@ const { User } = models;
  * @class Users
  */
 class Users {
-    /**
+  /**
      * @name create
      * @async
      * @static
@@ -22,30 +22,29 @@ class Users {
      * @param {Object} res express response object
      * @returns {JSON} JSON object with details of new user
      */
-    static async create(req, res) {
-      try {
-        if (await User.findByEmail(req.body.email)) {
-          return serverResponse(res, 409, {
-            error: 'email has already been taken'
-          });
-        }
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const user = await User.create({
-          ...req.body,
-          password: hashedPassword
+  static async create(req, res) {
+    try {
+      if (await User.findByEmail(req.body.email)) {
+        return serverResponse(res, 409, {
+          error: 'email has already been taken'
         });
-        const { id } = user;
-        delete user.password;
-        const token = generateToken({ id }, '24h');
-        res.set('Authorization', token);
-        return serverResponse(res, 201, {message:'successful', data: {...user.dataValues,token}});
-      } catch (error) {
-        console.log(error, 'this is the error');
-        return res.status(500).json({error});
       }
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const user = await User.create({
+        ...req.body,
+        password: hashedPassword
+      });
+      const { id } = user;
+      delete user.password;
+      const token = generateToken({ id }, '24h');
+      res.set('Authorization', token);
+      return serverResponse(res, 201, { message: 'successful', data: { ...user.dataValues, token } });
+    } catch (error) {
+      return res.status(500).json({ error });
     }
+  }
 
-    /**
+  /**
    * Method for handling signin route(POST api/v1/auth/login)
    * @param {object} request - the request object
    * @param {object} response  - object
@@ -72,7 +71,7 @@ class Users {
     }
   }
 
-      /**
+  /**
    * Method for handling signin route(POST api/v1/auth/login)
    * @param {object} request - the request object
    * @param {object} response  - object
@@ -80,8 +79,8 @@ class Users {
    */
   static async getUser(request, response) {
     try {
-      const user = request.user;
-     const token = response.locals.token;
+      const { user } = request;
+      const { token } = response.locals;
       return serverResponse(response, 200, {
         user: { ...user.dataValues },
         token
@@ -89,7 +88,6 @@ class Users {
     } catch (error) {
       console.log('the error', error);
       return serverError(response);
-
     }
   }
 }

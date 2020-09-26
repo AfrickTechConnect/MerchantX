@@ -130,10 +130,8 @@ class Followers {
   static async updateFollowsCount(source, target) {
     const followingsCount = await source.countAllFollowings();
     const followersCount = await target.countAllFollowers();
-
     await User.update({ followingsCount }, { where: { id: source.id } });
     await User.update({ followersCount }, { where: { id: target.id } });
-
     return null;
   }
 

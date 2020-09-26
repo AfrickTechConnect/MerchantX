@@ -5,12 +5,12 @@ import { verifyToken } from '../middlewares';
 const route = express.Router();
 
 route.post(
-  '/:username/follow',
+  '/:username',
   verifyToken,
   Followers.follow
 );
 route.delete(
-  '/:username/follow',
+  '/:username',
   verifyToken,
   Followers.unfollow
 );

@@ -1,14 +1,15 @@
-import expressValidator from 'express-validator/check';
-import checkForErrors from './checkForErrors';
-import { emptyBody } from '../helpers';
-const { check } = expressValidator;
 
-const makeLowerCase =  (value) => {
-    if (value !== '') {
-      return value.toLowerCase();
-    }
-    return value;
-  };
+import checkForErrors from './checkForErrors';
+import CommonValidator from './commonValidator';
+import { emptyBody } from '../helpers';
+
+
+const makeLowerCase = (value) => {
+  if (value !== '') {
+    return value.toLowerCase();
+  }
+  return value;
+};
 
 /**
  * @class UserValidator
@@ -16,54 +17,13 @@ const makeLowerCase =  (value) => {
  */
 export default class UserValidator {
   /**
-  * Generic validator to be used by all others
-  * @param {string} field
-  * @returns {function} call to a Check API middleware
-  * @memberof Validation
-  */
-  static genericCheck(field) {
-    return check(`${field}`)
-      .exists().withMessage(`${field} is missing`)
-      .not()
-      .isEmpty({ ignore_whitespace: true })
-      .withMessage(`${field} cannot be blank`);
-  }
-
-  /**
-* input validator to be used by all others
-* @param {string} field
-* @returns {function} call to a Check API middleware
-* @memberof Validation
-*/
-  static inputCheck(field) {
-    return check(`${field}`)
-      .optional()
-      .trim()
-      .not()
-      .isEmpty({ ignore_whitespace: true });
-  }
-
-  /**
-  * Email validator
-  * @returns {function} call to a Check API middleware
-  * @memberof Validation
-  */
-  static checkEmail() {
-    return UserValidator.genericCheck('email')
-      .trim()
-      .isEmail()
-      .withMessage('email is not valid')
-      .customSanitizer(value => makeLowerCase(value));
-  }
-
-  /**
   * Firstname and lastname validator
   * @param {string} name
   * @returns {function} call to a Check API middleware
   * @memberof Validation
   */
   static checkName(name) {
-    return UserValidator.genericCheck(`${name}`)
+    return CommonValidator.genericCheck(`${name}`)
       .trim()
       .isLength({ min: 2, max: 20 })
       .withMessage(`${name} must be at least 2 characters, and maximum 20`)
@@ -84,7 +44,7 @@ export default class UserValidator {
   * @memberof Validation
   */
   static checkPassword() {
-    return UserValidator.genericCheck('password')
+    return CommonValidator.genericCheck('password')
       .isLength({ min: 6, max: 20 })
       .withMessage('password must be at least 6 characters')
       .not()
@@ -99,7 +59,7 @@ export default class UserValidator {
    * @memberof Validation
    */
   static checkNumber(item) {
-    return UserValidator.genericCheck(item)
+    return CommonValidator.genericCheck(item)
       .trim()
       .isInt({ min: 1 })
       .withMessage(`${item} value must be at least 1 and an integer`);
@@ -112,7 +72,7 @@ export default class UserValidator {
   */
   static signUpValidation() {
     return [
-      UserValidator.checkEmail(),
+      CommonValidator.checkEmail(),
       UserValidator.checkName('firstname'),
       UserValidator.checkName('lastname'),
       UserValidator.checkPassword(),
@@ -128,7 +88,7 @@ export default class UserValidator {
   */
   static loginValidation() {
     return [
-      UserValidator.checkEmail(),
+      CommonValidator.checkEmail(),
       UserValidator.checkPassword(),
       checkForErrors,
       emptyBody

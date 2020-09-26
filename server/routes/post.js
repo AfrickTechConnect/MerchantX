@@ -11,4 +11,10 @@ route.post(
   Posts.Create
 );
 
+route.get(
+  '/',
+  verifyToken,
+  Posts.AllPosts
+);
+
 export default route;

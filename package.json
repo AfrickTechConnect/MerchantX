@@ -11,7 +11,8 @@
     "db:migrate": "sequelize db:migrate",
     "db:migrate-undo": "sequelize db:migrate:undo:all",
     "db:rollback": "npm run db:migrate-undo && npm run db:migrate && npm run db:seed",
-    "db:seed": "sequelize db:seed:all"
+    "db:seed": "sequelize db:seed:all",
+    "lint": "eslint '**/*.js'"
   },
   "author": "",
   "license": "ISC",
@@ -38,8 +39,12 @@
     "@babel/node": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/polyfill": "^7.4.4",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.2",
     "@babel/preset-env": "^7.5.5",
     "@babel/register": "^7.5.5",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "prettier-eslint-cli": "^5.0.0"
   }
 }

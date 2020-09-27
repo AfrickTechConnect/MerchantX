@@ -50,7 +50,7 @@ class Followers {
         following: { message: 'followed successfully', data: dataValues }
       });
     } catch (error) {
-      return serverError(res);
+      return serverError(req, res, error);
     }
   }
 
@@ -92,7 +92,7 @@ class Followers {
         }
       });
     } catch (error) {
-      return serverError(res);
+      return serverError(req, res, error);
     }
   }
 
@@ -112,7 +112,7 @@ class Followers {
     if (id === user.id) {
       return {
         status: 409,
-        message: { error: 'user cannot perform this action' }
+        message: { message: 'user cannot perform this action' }
       };
     }
     return false;
@@ -162,7 +162,7 @@ class Followers {
       const users = followings.map(following => following.dataValues);
       serverResponse(res, 200, { followings: users });
     } catch (error) {
-      return serverError(res);
+      return serverError(req, res, error);
     }
   }
 }

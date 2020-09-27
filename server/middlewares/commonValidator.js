@@ -12,7 +12,7 @@ const makeLowerCase = (value) => {
 const { check } = expressValidator;
 /**
  * @class UserValidator
- * @classdesc Provides validation middlewares for login and signup route
+ * @classdesc Provides common validation middlewares
  */
 export default class CommonValidator {
   /**

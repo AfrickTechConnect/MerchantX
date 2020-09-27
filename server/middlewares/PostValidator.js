@@ -11,7 +11,7 @@ const makeLowerCase = (value) => {
 
 /**
  * @class PostValidator
- * @classdesc Provides validation middlewares for login and signup route
+ * @classdesc Provides validation middlewares for user posts
  */
 export default class PostValidator {
   /**

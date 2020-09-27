@@ -27,8 +27,15 @@ module.exports = (sequelize, DataTypes) => {
       as: 'Author',
       onDelete: 'CASCADE'
     });
+    Post.hasMany(models.Comment, {
+      foreignKey: 'postId'
+    });
   };
-
+  Post.findBySlug = async (slug) => {
+    const post = await Post.findOne({ where: { slug } });
+    if (post) return post;
+    return null;
+  };
   SequelizeSlugify.slugifyModel(Post, {
     source: ['title'],
     overwrite: false,

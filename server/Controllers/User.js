@@ -67,7 +67,7 @@ class Users {
         data: { ...dataValues, token }
       });
     } catch (error) {
-      return serverError(response);
+      return serverError(request, response, error);
     }
   }
 
@@ -86,8 +86,7 @@ class Users {
         token
       });
     } catch (error) {
-      console.log('the error', error);
-      return serverError(response);
+      return serverError(request, response, error);
     }
   }
 }

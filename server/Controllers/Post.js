@@ -61,7 +61,23 @@ class Posts {
           authorId: id
         },
         limit,
-        offset
+        offset,
+        include: [
+          {
+            model: models.Comment,
+            include: [
+              {
+                model: models.User,
+                as: 'author',
+                attributes: [
+                  'id',
+                  'firstname',
+                  'lastname',
+                ]
+              }
+            ]
+          },
+        ]
       });
       const { count } = userPosts;
       const { totalPages, itemsOnPage, parsedPage } = pageCounter(count, page, pageItems);

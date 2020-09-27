@@ -1,7 +1,7 @@
 import generateToken from './generateToken';
 import { serverResponse, serverError } from './serverResponse';
 import emptyBody from './emptyBody';
-import sendMail from './sendMail';
+import isFollowing from './isFollowing';
 import { paginationValues, pageCounter } from './pagination';
 
 export {
@@ -9,7 +9,7 @@ export {
   serverResponse,
   serverError,
   emptyBody,
-  sendMail,
   paginationValues,
-  pageCounter
+  pageCounter,
+  isFollowing
 };

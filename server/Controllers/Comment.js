@@ -29,7 +29,6 @@ class Comments {
       }
       const postAuthorId = post.authorId;
       const isFollow = await isFollowing(postAuthorId, userId);
-      console.log(isFollow, 'This is our isFollow', postAuthorId, 'authorId', userId, 'user id');
       if (!isFollow) {
         if (postAuthorId !== userId) return serverResponse(res, 401, { message: 'user not authorized to comment' });
       }
@@ -38,11 +37,9 @@ class Comments {
         comment,
         postId: post.id
       });
-      console.log(commentData, 'comment data');
       return serverResponse(res, 200,
         { message: 'comment added successfully', data: { commentData } });
     } catch (e) {
-      console.log(e, 'this is the error>>>');
       return serverError(req, res, e);
     }
   }

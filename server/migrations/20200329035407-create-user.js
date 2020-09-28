@@ -6,6 +6,13 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
+    avatarUrl: {
+      type: Sequelize.TEXT,
+      allowNull: true
+    },
+    type: {
+      type: Sequelize.TEXT,
+    },
     firstname: {
       type: Sequelize.STRING
     },

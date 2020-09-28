@@ -10,7 +10,9 @@ A REST API BACKEND  FOR A MINI SOCIAL MEDIA BUILT WITH NODE.JS, EXPRESS AND SEQU
 - user can see a list of their friend
 - Users can post a message on their wall
 - Users can comment on own post or friends
-- Admin can edit/delete all users content
+- Admin can edit/delete all users content i.e. the following
+    - comment
+    - posts
 - Reversible sorting of friends lists
 
 

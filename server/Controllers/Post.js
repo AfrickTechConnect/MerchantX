@@ -73,6 +73,7 @@ class Posts {
                   'id',
                   'firstname',
                   'lastname',
+                  'avatarUrl'
                 ]
               }
             ]

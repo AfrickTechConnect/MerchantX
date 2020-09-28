@@ -1,0 +1,28 @@
+*,
+body {
+  margin: 0 2rem;
+}
+
+a {
+  text-decoration: none;
+  box-shadow: none;
+  color: inherit;
+}
+
+input,
+button,
+submit {
+  border: none;
+  outline: none;
+}
+
+html {
+  font-size: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  *,
+  body {
+    margin: 0rem;
+  }
+}

@@ -5,6 +5,21 @@ export default (sequelize, DataTypes) => {
     lastname: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
+    type: {
+      type: DataTypes.TEXT,
+      defaultValue: 'user'
+    },
+    avatarUrl: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      defaultValue:
+        'https://res.cloudinary.com/teamrambo50/image/upload/v1565160704/avatar-1577909_1280_xsoxql.png',
+      validate: {
+        isUrl: {
+          msg: 'avatar url format is invalid'
+        }
+      }
+    },
     followingsCount: {
       type: DataTypes.INTEGER,
       allowNull: true,

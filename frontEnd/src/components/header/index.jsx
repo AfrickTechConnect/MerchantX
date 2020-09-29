@@ -9,7 +9,9 @@ const Header = () => {
   return (
     <header className="header__container">
       <div className="header__logo">
-        <Image rounded="full" size="100px" src={LogoUrl} alt="Logo" />
+        <Link to="/home">
+          <Image rounded="full" size="100px" src={LogoUrl} alt="Logo" />
+        </Link>
       </div>
       <div className="header__mobile">
         <ShowMobileNav />
@@ -18,7 +20,7 @@ const Header = () => {
         <Link to="/login">
           <div className="header__button">Login</div>
         </Link>
-        <Link to="/sign up">
+        <Link to="/signup">
           <div className="header__button border-btn">sign up</div>
         </Link>
       </div>

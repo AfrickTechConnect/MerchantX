@@ -1,0 +1,26 @@
+.button-container {
+  outline: 0;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-family: inherit;
+  line-height: var(--input-height);
+  cursor: pointer;
+  border-radius: var(--button-border-radius);
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-top: 2.5rem;
+}
+
+.button-container:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.button-container-icon {
+  position: absolute;
+  left: 1rem;
+  width: 2.3rem;
+}

@@ -1,5 +1,4 @@
 import React from "react"
-import { Image } from "@chakra-ui/core"
 import Hero1Logo from "../../assets/svg/hero1.svg"
 import Hero2Logo from "../../assets/svg/hero2.svg"
 import Hero3Logo from "../../assets/svg/hero3.svg"

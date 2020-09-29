@@ -30,6 +30,10 @@
 .border-btn {
   border: 2.5px solid black;
 }
+.sign__out {
+  cursor: pointer;
+  border: 2.5px solid black;
+}
 
 @media screen and (max-width: 600px) {
   .header__container {

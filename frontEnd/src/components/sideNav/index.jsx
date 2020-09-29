@@ -11,10 +11,10 @@ const showMobileNav = (props) => {
       </label>
       <ul className="menu">
         <li>
-          <Link to="/terms">Sign In</Link>
+          <Link to="/login">Sign In</Link>
         </li>
         <li>
-          <Link to="/terms">Sign Up</Link>
+          <Link to="/signup">Sign Up</Link>
         </li>
       </ul>
     </div>

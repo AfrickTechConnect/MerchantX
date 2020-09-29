@@ -22,7 +22,7 @@ const Auth = (props) => {
       {(authenticating == true) & (isAuth == false) ? <Loader /> : ""}
       {(isAuth == true) & (authenticating == false) ? <Dashboard /> : ""}
       {(isAuth == false) & (authenticating == false) ? (
-        <Login RedirectLocation={props.location.state} />
+        <Home RedirectLocation={props.location.state} />
       ) : (
         ""
       )}

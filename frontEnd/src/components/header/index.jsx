@@ -20,7 +20,7 @@ const Header = () => {
         <Link to="/login">
           <div className="header__button">Login</div>
         </Link>
-        <Link to="/sign up">
+        <Link to="/signup">
           <div className="header__button border-btn">sign up</div>
         </Link>
       </div>

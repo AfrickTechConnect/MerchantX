@@ -5,28 +5,19 @@ import { siginUser } from "../../../actions"
 import Input from "../../components/Input"
 import Button from "../../components/button"
 import Loader from "../../components/spinner"
+import { useHistory } from "react-router-dom"
 import fields from "./fields"
 import { connect } from "react-redux"
-import setting from "../../../helpers/settings"
 import "./index.css"
 
-const Login = ({ loginRequest }) => {
+const Login = ({ loginRequest, signin }) => {
+  let history = useHistory()
+  const { loading, UserData, isSignedIn } = signin
   const [formFields, setFormFields] = useState({ email: "", password: "" })
   const [errors, setErrors] = useState({})
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const requiredFields = fields.filter(({ require }) => require).map(({ name }) => name)
   const toast = useToast()
-  console.log(formFields, "our form fields>>>>")
-  console.log(errors, "our form errors>>>>")
-  console.log(submitDisabled, "our submit forms>>>>")
-  const callToast = (status, description) => {
-    toast({
-      ...setting,
-      title: status === "success" ? "" : "Login Error",
-      description: `${status === "success" ? "" : "Error message"} ${description}`,
-      status,
-    })
-  }
   const clearErrors = (newErrorState) => {
     const errorObj = {}
 
@@ -62,16 +53,26 @@ const Login = ({ loginRequest }) => {
   }, [])
 
   useEffect(() => {
+    if (UserData.message) {
+      toast({
+        title: "",
+        description: UserData.data ? "login successful" : `${UserData.message}`,
+        status: UserData.data ? "success" : "warning",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      })
+      if (isSignedIn) {
+        history.push("/")
+        localStorage.setItem("token", UserData.data.token)
+      }
+    }
+  }, [UserData])
+
+  useEffect(() => {
     if (Object.keys(errors).length) setSubmitDisabled(true)
     else setSubmitDisabled(false)
   }, [errors])
-  /*useEffect(() => {
-    if (stateError && Object.keys(stateError).length) {
-      const errorVal = typeof stateError === "string" ? stateError : Object.values(stateError)[0]
-
-      callToast("error", errorVal)
-    }
-  }, [stateError])*/
 
   const collectInputError = (elemName, error) => {
     setErrors((currentState) =>
@@ -109,7 +110,7 @@ const Login = ({ loginRequest }) => {
 
   return (
     <section className="signin-page">
-      <Loader />
+      {loading && <Loader />}
       <Header />
       <div className="signin-page__container">
         <form onSubmit={handleFormSubmit}>

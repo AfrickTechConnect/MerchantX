@@ -1,0 +1,84 @@
+.signin-page {
+  position: relative;
+}
+
+.signin-page__container {
+  width: 30%;
+  margin: 2rem auto !important;
+  padding: 3rem;
+  position: relative;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+}
+
+.signin-page_logo-wrapper {
+  text-align: center;
+  padding-top: 4.7rem;
+  margin-bottom: 4rem;
+}
+
+.signin__text {
+  font-size: 1.6rem;
+  line-height: 2rem;
+  text-align: center;
+  padding-bottom: 3.7rem;
+}
+.signin-page__logo {
+  width: 14rem;
+}
+.signin-page__form-link {
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  text-align: right;
+  text-decoration: underline;
+  color: #0f7777;
+  margin-top: 2rem;
+  font-family: inherit;
+}
+
+.signin-page__form-link--1 {
+  display: block;
+  width: auto;
+  background-color: red;
+  margin-top: 0.8rem;
+  margin-bottom: 4rem;
+}
+.signin-page__forgot-password-div {
+  display: flex;
+  justify-content: flex-end;
+}
+.signin-page__text {
+  font: normal normal normal 1.4rem/2rem CircularStdMedium;
+  color: #3b3b3b;
+}
+.signin-page__forgot-password {
+  color: #0f7777;
+  margin-top: 2rem;
+  font: normal normal normal 1.4rem/2rem CircularStdMedium;
+  text-decoration: underline;
+}
+.signin-page__form-link--2 {
+  display: inline-block;
+}
+
+.signin-page__text__link {
+  margin-left: 0.5rem;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1030px) {
+  .signin-page__container {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .signin-page__container {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 590px) {
+  .signin-page__container {
+    width: 85%;
+  }
+}

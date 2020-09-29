@@ -81,6 +81,7 @@ class Users {
     try {
       const { user } = request;
       const { token } = response.locals;
+      delete user.dataValues.password;
       return serverResponse(response, 200, {
         user: { ...user.dataValues },
         token

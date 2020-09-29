@@ -4,17 +4,19 @@ config();
 
 const development = {
   use_env_variable: 'DB_URL_DEV',
-  dialect: 'postgres'
+  dialect: 'postgres',
+  logging: false
 };
 
 const test = {
-  use_env_variable: process.env.HEROKU_POSTGRESQL_TEAL_URL,
-  dialect: 'postgres',
+  use_env_variable: 'DB_URL_TEST',
+  dialect: 'postgres'
 };
 
 const production = {
-  use_env_variable: process.env.HEROKU_TEST_TEAL_URL,
+  use_env_variable: 'DATABASE_URL',
   dialect: 'postgres',
+  logging: false
 };
 
 export { development, test, production };

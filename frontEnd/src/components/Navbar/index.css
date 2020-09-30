@@ -1,0 +1,29 @@
+.dashboard--nav {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0rem;
+  padding: 0rem;
+  font-style: normal;
+}
+
+.dashboard__navItem {
+  box-sizing: border-box;
+  text-align: center;
+  padding: 1rem 4rem;
+  margin: 0;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dashboard__navItem--focus {
+  box-sizing: border-box;
+  text-align: center;
+  padding: 1rem 4rem;
+  margin: 0;
+  cursor: pointer;
+  border: 1px solid #f5b840;
+}
+
+.dashboard__navItem--focus p {
+  color: #f5b840;
+}

@@ -1,5 +1,17 @@
 .dashboard__container {
   margin: 5rem 20rem;
   border: 1px solid grey;
+  justify-content: center;
   display: flex;
+}
+
+.icon_container {
+  display: flex;
+  margin-top: 4rem;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.dashboard__frag {
+  display: block;
 }

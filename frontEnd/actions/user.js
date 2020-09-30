@@ -25,7 +25,6 @@ export const siginUser = (details) => async (dispatch) => {
   dispatch({ type: types.USER_SIGNIN_REQUEST })
   try {
     const response = await asyncRequest("post", "/api/v1/users/signin", details)
-    console.log(response, "this is our response>>>>")
     data = response.data
     dispatch({
       type: types.USER_SIGNIN_SUCCESS,

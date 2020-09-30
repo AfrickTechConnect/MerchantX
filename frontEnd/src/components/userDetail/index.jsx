@@ -1,0 +1,85 @@
+import React, { useState, Fragment } from "react"
+import Navbar from "../Navbar"
+import Post from "../../pages/post"
+import "./index.css"
+
+const UserDetails = ({ firstname, email, lastname, followingsCount, followersCount }) => {
+  const [post, setPost] = useState(false)
+  const [following, setFollowing] = useState(false)
+  const [follower, setFollower] = useState(false)
+
+  const postClick = () => {
+    setPost(true)
+    setFollowing(false)
+    setFollower(false)
+  }
+
+  const followingClick = () => {
+    setPost(false)
+    setFollowing(true)
+    setFollower(false)
+  }
+
+  const followerClick = () => {
+    setPost(false)
+    setFollowing(false)
+    setFollower(true)
+  }
+
+  return (
+    <div className="userdetails__container">
+      <h1 className="profile_text">
+        {firstname.toUpperCase()} {lastname.toUpperCase()}
+      </h1>
+      <span className="profile__subtext">{email}</span>
+      <div className="profile_stats">
+        <div className="profile__followers">
+          <h2 className="count">{followersCount}</h2>
+          <span className="profile__subtext">followers</span>
+        </div>
+        <div className="profile__followings">
+          <h2 className="count">{followingsCount}</h2>
+          <span className="profile__subtext">followings</span>
+        </div>
+      </div>
+      <Fragment>
+        <Navbar
+          items={[
+            {
+              text: "Posts",
+              link: "/profile",
+              style: "dashboard__navItem",
+              onclick: () => {
+                postClick()
+              },
+              active: post,
+            },
+            {
+              text: "Following",
+              link: "/",
+              style: "dashboard__navItem",
+              onclick: () => {
+                followingClick()
+              },
+              active: following,
+            },
+            {
+              text: "Followers",
+              link: "/",
+              style: "dashboard__navItem",
+              onclick: () => {
+                followerClick()
+              },
+              active: follower,
+            },
+          ]}
+        />
+        {post && <Post />}
+        {following && <div>following</div>}
+        {follower && <div>follower</div>}
+      </Fragment>
+    </div>
+  )
+}
+
+export default UserDetails

@@ -26,7 +26,7 @@ class Users {
     try {
       if (await User.findByEmail(req.body.email)) {
         return serverResponse(res, 409, {
-          error: 'email has already been taken'
+          message: 'email has already been taken'
         });
       }
       const hashedPassword = await bcrypt.hash(req.body.password, 10);

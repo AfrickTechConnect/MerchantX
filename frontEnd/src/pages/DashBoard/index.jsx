@@ -1,9 +1,9 @@
 import React, { Fragment } from "react"
-import { Image } from "@chakra-ui/core"
+import { Image, Modal } from "@chakra-ui/core"
 import { connect } from "react-redux"
 import UserDetails from "../../components/userDetail"
+import { Link } from "react-router-dom"
 import { IconButton, Icon } from "@chakra-ui/core"
-import Post from "../post"
 import "./index.css"
 
 const DashBoard = ({ data }) => {
@@ -20,7 +20,9 @@ const DashBoard = ({ data }) => {
       <div>
         <Image rounded="full" size="100px" src={avatarUrl} alt="Profile pix" />
         <div className="icon_container">
-          <Icon name="add" size="32px" />
+          <Link to="/post">
+            <Icon name="add" size="32px" />
+          </Link>
         </div>
       </div>
       <UserDetails

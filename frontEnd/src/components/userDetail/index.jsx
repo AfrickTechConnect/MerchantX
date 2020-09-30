@@ -1,29 +1,40 @@
 import React, { useState, Fragment } from "react"
 import Navbar from "../Navbar"
-import Post from "../../pages/post"
+import Post from "../../pages/allpost"
 import "./index.css"
 
 const UserDetails = ({ firstname, email, lastname, followingsCount, followersCount }) => {
   const [post, setPost] = useState(false)
   const [following, setFollowing] = useState(false)
   const [follower, setFollower] = useState(false)
+  const [follow, setFollow] = useState(false)
 
   const postClick = () => {
     setPost(true)
     setFollowing(false)
     setFollower(false)
+    setFollow(false)
   }
 
   const followingClick = () => {
     setPost(false)
     setFollowing(true)
     setFollower(false)
+    setFollow(false)
   }
 
   const followerClick = () => {
     setPost(false)
     setFollowing(false)
     setFollower(true)
+    setFollow(false)
+  }
+
+  const followClick = () => {
+    setPost(false)
+    setFollowing(false)
+    setFollower(false)
+    setFollow(true)
   }
 
   return (
@@ -71,6 +82,15 @@ const UserDetails = ({ firstname, email, lastname, followingsCount, followersCou
                 followerClick()
               },
               active: follower,
+            },
+            {
+              text: "Follow",
+              link: "/",
+              style: "dashboard__navItem",
+              onclick: () => {
+                followClick()
+              },
+              active: follow,
             },
           ]}
         />

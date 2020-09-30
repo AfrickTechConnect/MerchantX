@@ -7,6 +7,7 @@ import Dashboard from "./pages/DashBoard"
 import Login from "./pages/login"
 import Signup from "./pages/signup"
 import ProtectedRoute from "./components/protectedRoute"
+import CreatePost from "./pages/createPost"
 
 const Router = () => (
   <Switch>
@@ -14,6 +15,7 @@ const Router = () => (
     <Route path="/home" exact component={Home} />
     <Route path="/login" exact component={Login} />
     <Route path="/signup" exact component={Signup} />
+    <Route path="/post" exact component={CreatePost} />
     <ProtectedRoute path="/dashboard" component={Dashboard} />
     <Route component={NotFound} />
   </Switch>

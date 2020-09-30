@@ -50,6 +50,7 @@ export const sigupUser = (userdetails) => async (dispatch) => {
       data,
     })
   } catch (e) {
+    data = e.response === undefined ? { status: 599, msg: "NETWORK ERROR" } : e.response.data
     dispatch({
       type: types.USER_SIGNUP_FAILURE,
       data,

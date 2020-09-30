@@ -1,6 +1,5 @@
 .dashboard__container {
   margin: 5rem 20rem;
-  border: 1px solid grey;
   justify-content: center;
   display: flex;
 }
@@ -14,4 +13,21 @@
 
 .dashboard__frag {
   display: block;
+}
+
+@media screen and (max-width: 756px) {
+  .dashboard__container {
+    display: block;
+    margin: 0rem;
+  }
+  .icon_container {
+    display: flex;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    justify-content: start;
+  }
+}
+
+@media screen and (max-width: 610px) {
 }

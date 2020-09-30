@@ -86,9 +86,9 @@ class Posts {
         totalPages,
         itemsOnPage,
         parsedPage,
-        data: userPosts.rows
+        posts: userPosts.rows
       };
-      return serverResponse(res, 200, { message: 'successful', data: { userPost } });
+      return serverResponse(res, 200, { message: 'successful', data: { ...userPost } });
     } catch (e) {
       return serverError(req, res, e);
     }

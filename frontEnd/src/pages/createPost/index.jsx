@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from "react"
 import { useToast } from "@chakra-ui/core"
 import Header from "../../components/header"
-import { sigupUser } from "../../../actions"
+import { createUserPosts } from "../../../actions"
 import Input from "../../components/Input"
+import TextArea from "../../components/textarea"
 import Button from "../../components/button"
 import Loader from "../../components/spinner"
 import { useHistory } from "react-router-dom"
-import fields from "./fields.js"
+import fields from "./fields"
 import { connect } from "react-redux"
 
-const SignUp = ({ signupRequest, signup }) => {
+const CreatePost = ({ createPostRequest, post }) => {
   let history = useHistory()
-  const { loading, UserData, isSignedUp } = signup
-  const [formFields, setFormFields] = useState({
-    email: "",
-    password: "",
-    firstname: "",
-    lastname: "",
-  })
+  const { createdPost, createPostStatus, createPostloading } = post
+  const [formFields, setFormFields] = useState({ title: "", description: "" })
   const [errors, setErrors] = useState({})
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const requiredFields = fields.filter(({ require }) => require).map(({ name }) => name)
@@ -57,21 +53,20 @@ const SignUp = ({ signupRequest, signup }) => {
   }, [])
 
   useEffect(() => {
-    if (UserData.message) {
+    if (createdPost.message) {
       toast({
         title: "",
-        description: UserData.data ? "signup successful" : `${UserData.message}`,
-        status: UserData.data ? "success" : "warning",
+        description: createdPost.data ? "post created successful" : `${createdPost.message}`,
+        status: createdPost.data ? "success" : "warning",
         duration: 9000,
         isClosable: true,
         position: "top",
       })
-      if (isSignedUp) {
+      if (createPostStatus) {
         history.push("/")
-        localStorage.setItem("token", UserData.data.token)
       }
     }
-  }, [UserData])
+  }, [createdPost])
 
   useEffect(() => {
     if (Object.keys(errors).length) setSubmitDisabled(true)
@@ -94,28 +89,39 @@ const SignUp = ({ signupRequest, signup }) => {
     }))
   }
 
-  const inputFields = fields.map((item) => (
-    <Input
-      key={item.name}
-      category={item.category}
-      onKeyUp={inputChange}
-      name={item.name}
-      submitError={collectInputError}
-      placeholder={item.placeholder}
-      label={item.label}
-      validation={item.validation}
-    />
-  ))
+  const inputFields = fields.map((item) =>
+    item.type === "input" ? (
+      <Input
+        key={item.name}
+        category={item.category}
+        onKeyUp={inputChange}
+        name={item.name}
+        submitError={collectInputError}
+        placeholder={item.placeholder}
+        label={item.label}
+        validation={item.validation}
+      />
+    ) : (
+      <TextArea
+        key={item.name}
+        name={item.name}
+        label={item.label}
+        placeholder={item.placeholder}
+        validation={item.validation}
+        submitError={collectInputError}
+        onChange={inputChange}
+      />
+    )
+  )
 
   const handleSubmit = () => {
-    signupRequest({ ...formFields })
+    createPostRequest({ ...formFields })
   }
   const handleFormSubmit = (e) => e.preventDefault()
 
   return (
     <section className="signin-page">
-      {loading && <Loader />}
-      <Header />
+      {createPostloading && <Loader />}
       <div className="signin-page__container">
         <form onSubmit={handleFormSubmit}>
           {inputFields}
@@ -124,7 +130,7 @@ const SignUp = ({ signupRequest, signup }) => {
             outline={true}
             disabled={submitDisabled}
             color="black"
-            text="Sign Up"
+            text="Create Post"
           />
         </form>
       </div>
@@ -133,11 +139,11 @@ const SignUp = ({ signupRequest, signup }) => {
 }
 
 const mapStateToProps = (state) => ({
-  signup: state.user,
+  post: state.post,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  signupRequest: (payload) => dispatch(sigupUser(payload)),
+  createPostRequest: (payload) => dispatch(createUserPosts(payload)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
+export default connect(mapStateToProps, mapDispatchToProps)(CreatePost)

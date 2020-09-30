@@ -24,5 +24,6 @@ html {
   *,
   body {
     margin: 0rem;
+    padding: 0.2rem;
   }
 }

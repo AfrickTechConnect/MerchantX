@@ -1,0 +1,22 @@
+.text-area-container {
+  margin-top: 3rem;
+}
+
+.text-area-container-label {
+  margin-bottom: 1rem;
+  display: block;
+  color: #707070;
+}
+
+.text-area-container-input::placeholder {
+  color: #c9c9c9;
+  opacity: 1;
+}
+
+.text-area-container-input:focus {
+  border: 0.1rem solid red;
+}
+
+.text-area-container__error {
+  color: red;
+}

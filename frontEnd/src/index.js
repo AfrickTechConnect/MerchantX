@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { ThemeProvider, CSSReset } from "@chakra-ui/core"
-import App from "./App"
+import App from "./app"
 import { createStore, applyMiddleware } from "redux"
 import thunk from "redux-thunk"
 import { theme } from "@chakra-ui/core"

@@ -9,6 +9,16 @@ route.post(
   verifyToken,
   Followers.follow
 );
+route.get(
+  '/followers',
+  verifyToken,
+  Followers.allFollwers
+);
+route.get(
+  '/followings',
+  verifyToken,
+  Followers.allFollowings
+);
 route.delete(
   '/:username',
   verifyToken,

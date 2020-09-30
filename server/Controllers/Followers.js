@@ -147,10 +147,13 @@ class Followers {
   static async allFollowings(req, res) {
     try {
       const {
-        user: { id }
+        query: { sort }
       } = req;
-      const user = await User.findById(id);
-      const followings = await user.getAllFollowings({
+      const orderby = sort === 'ASC' ? 'ASC' : 'DESC';
+      const followings = await req.user.getAllFollowings({
+        order: [
+          ['id', orderby],
+        ],
         include: [
           {
             model: User,
@@ -161,6 +164,41 @@ class Followers {
       });
       const users = followings.map(following => following.dataValues);
       serverResponse(res, 200, { followings: users });
+    } catch (error) {
+      return serverError(req, res, error);
+    }
+  }
+
+
+  /**
+   * @name count
+   * @async
+   * @static
+   * @memberof Users
+   * @param {Object} req express request object
+   * @param {Object} res express response object
+   * @returns {JSON} JSON object with details of an unfollowed user
+   */
+  static async allFollwers(req, res) {
+    try {
+      const {
+        query: { sort }
+      } = req;
+      const orderby = sort === 'ASC' ? 'ASC' : 'DESC';
+      const followers = await req.user.getAllFollowers({
+        order: [
+          ['id', orderby],
+        ],
+        include: [
+          {
+            model: User,
+            as: 'follower',
+            attributes: userAttributes
+          }
+        ]
+      });
+      const users = followers.map(follower => follower.dataValues);
+      serverResponse(res, 200, { followers: users });
     } catch (error) {
       return serverError(req, res, error);
     }

@@ -10,6 +10,7 @@
     "build": "babel server --out-dir dist",
     "db:migrate": "sequelize db:migrate",
     "db:migrate-undo": "sequelize db:migrate:undo:all",
+    "frontend-build": "./frontendbuild.sh",
     "db:rollback": "npm run db:migrate-undo && npm run db:migrate && npm run db:seed",
     "db:seed": "sequelize db:seed:all",
     "lint": "eslint '**/*.js'"

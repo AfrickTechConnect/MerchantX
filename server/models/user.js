@@ -13,7 +13,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: true,
       defaultValue:
-        'https://res.cloudinary.com/teamrambo50/image/upload/v1565160704/avatar-1577909_1280_xsoxql.png',
+        'https://res.cloudinary.com/kaytronics/image/upload/v1601414891/profile-placeholder_ssulwg.png',
       validate: {
         isUrl: {
           msg: 'avatar url format is invalid'

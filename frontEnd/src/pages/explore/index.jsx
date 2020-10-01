@@ -1,22 +1,22 @@
 import React, { useEffect } from "react"
-import { getUserPosts, createUserPosts } from "../../../actions"
+import { getAllPosts } from "../../../actions"
 import { connect } from "react-redux"
 import Loader from "../../components/spinner"
 import Post from "../../components/post"
 import "./index.css"
 
-const Explore = ({ posts, getPostsRequest }) => {
-  const { loading, UserPosts, postsStatus } = posts
+const Explore = ({ explore, getAllPosts }) => {
+  const { loading, UserPosts, postsStatus } = explore
 
   useEffect(() => {
-    getPostsRequest()
+    getAllPosts()
   }, [])
   return (
     <div className="dashboard__container">
       {loading && <Loader />}
       <div>
         {postsStatus &&
-          UserPosts.data.posts.map((post, key) => {
+          UserPosts.data.map((post, key) => {
             return <Post key={key} post={post} />
           })}
       </div>
@@ -25,12 +25,11 @@ const Explore = ({ posts, getPostsRequest }) => {
 }
 
 const mapStateToProps = (state) => ({
-  posts: state.post,
+  explore: state.explore,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getPostsRequest: () => dispatch(getUserPosts()),
-  createPosts: (payload) => dispatch(createPosts(payload)),
+  getAllPosts: () => dispatch(getAllPosts()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Explore)

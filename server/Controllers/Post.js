@@ -159,6 +159,16 @@ class Posts {
         limit,
         include: [
           {
+            model: models.User,
+            as: 'Author',
+            attributes: [
+              'id',
+              'firstname',
+              'lastname',
+              'avatarUrl'
+            ]
+          },
+          {
             model: models.Comment,
             include: [
               {
@@ -186,6 +196,7 @@ class Posts {
       };
       serverResponse(res, 200, allPosts);
     } catch (error) {
+      console.log(error, 'this is the error>>>>');
       return res.status(500).json({ message: 'failed to get all post' });
     }
   }

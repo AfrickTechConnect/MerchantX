@@ -12,9 +12,20 @@ route.post(
 );
 
 route.get(
-  '/',
+  '/all',
   verifyToken,
   Posts.AllPosts
+);
+
+route.get(
+  '/find/:id',
+  Posts.Find
+);
+
+route.get(
+  '/',
+  verifyToken,
+  Posts.UsersPosts
 );
 
 export default route;

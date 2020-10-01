@@ -5,14 +5,14 @@ import Loader from "../../components/spinner"
 import Post from "../../components/post"
 import "./index.css"
 
-const AllPost = ({ posts, getPostsRequest }) => {
+const Explore = ({ posts, getPostsRequest }) => {
   const { loading, UserPosts, postsStatus } = posts
 
   useEffect(() => {
     getPostsRequest()
   }, [])
   return (
-    <>
+    <div className="dashboard__container">
       {loading && <Loader />}
       <div>
         {postsStatus &&
@@ -20,7 +20,7 @@ const AllPost = ({ posts, getPostsRequest }) => {
             return <Post key={key} post={post} />
           })}
       </div>
-    </>
+    </div>
   )
 }
 
@@ -33,4 +33,4 @@ const mapDispatchToProps = (dispatch) => ({
   createPosts: (payload) => dispatch(createPosts(payload)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllPost)
+export default connect(mapStateToProps, mapDispatchToProps)(Explore)

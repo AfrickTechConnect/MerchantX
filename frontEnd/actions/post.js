@@ -38,3 +38,8 @@ export const createUserPosts = (details) => async (dispatch) => {
     })
   }
 }
+
+export const clearUserPosts = (details) => async (dispatch) => {
+  let data
+  dispatch({ type: types.CLEAR_USER_POSTS })
+}

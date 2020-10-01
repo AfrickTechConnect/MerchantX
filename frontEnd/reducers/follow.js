@@ -4,17 +4,20 @@ const initialState = {
   allfollows: {},
   loading: false,
   followsStatus: false,
+  allfollowers: {},
+  isloadingFollower: false,
+  followersStatus: false,
   createdFollow: {},
   createFollowStatus: false,
   createFollowloading: false,
 }
 
-const user = (state = { ...initialState }, action) => {
+const follow = (state = { ...initialState }, action) => {
   switch (action.type) {
     case actionTypes.CREATE_USER_FOLLOW_REQUEST:
       return {
         ...state,
-        createFollowloading: false,
+        createFollowloading: true,
         createFollowStatus: false,
       }
     case actionTypes.CREATE_USER_FOLLOW_SUCCESS:
@@ -34,14 +37,14 @@ const user = (state = { ...initialState }, action) => {
     case actionTypes.GET_USER_FOLLOW_REQUEST:
       return {
         ...state,
-        loading: false,
+        loading: true,
         followsStatus: false,
       }
     case actionTypes.GET_USER_FOLLOW_FAILURE:
       return {
         ...state,
-        createFollowloading: false,
-        loading: action.data,
+        loading: false,
+        allfollows: action.data,
         followsStatus: false,
       }
     case actionTypes.GET_USER_FOLLOW_SUCCESS:
@@ -51,9 +54,31 @@ const user = (state = { ...initialState }, action) => {
         loading: false,
         allfollows: action.data,
       }
+
+    case actionTypes.GET_USER_FOLLOWER_REQUEST:
+      return {
+        ...state,
+        isloadingFollower: true,
+        followersStatus: false,
+      }
+    case actionTypes.GET_USER_FOLLOWER_FAILURE:
+      return {
+        ...state,
+        isloadingFollower: false,
+        allfollowers: action.data,
+        followersStatus: false,
+      }
+    case actionTypes.GET_USER_FOLLOWER_SUCCESS:
+      return {
+        ...state,
+        followersStatus: true,
+        isloadingFollower: false,
+        allfollowers: action.data,
+      }
+
     default:
       return state
   }
 }
 
-export default user
+export default follow

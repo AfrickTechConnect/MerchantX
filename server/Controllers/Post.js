@@ -62,6 +62,9 @@ class Posts {
         },
         limit,
         offset,
+        order: [
+          ['id', 'DESC'],
+        ],
         include: [
           {
             model: models.Comment,

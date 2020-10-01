@@ -18,9 +18,6 @@ const AllPost = ({ posts, getPostsRequest }) => {
       <div>
         {postsStatus &&
           UserPosts.data.posts.map((post, key) => {
-            {
-              console.log(post, "hello post>>>>>")
-            }
             return <Post key={key} post={post} />
           })}
       </div>

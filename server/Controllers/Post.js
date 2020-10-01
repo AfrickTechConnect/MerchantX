@@ -156,7 +156,24 @@ class Posts {
       } = req.query;
       let allPosts = await Post.findAndCountAll({
         offset,
-        limit
+        limit,
+        include: [
+          {
+            model: models.Comment,
+            include: [
+              {
+                model: models.User,
+                as: 'author',
+                attributes: [
+                  'id',
+                  'firstname',
+                  'lastname',
+                  'avatarUrl'
+                ]
+              }
+            ]
+          },
+        ]
       });
       const { count } = allPosts;
       const { totalPages, itemsOnPage, parsedPage } = pageCounter(count, page, pageItem);

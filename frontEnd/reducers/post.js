@@ -43,6 +43,8 @@ const post = (state = { ...initialState }, action) => {
       }
     case actionTypes.CREATE_USER_POSTS_REQUEST:
       return { ...state, createPostloading: true, createPostStatus: false }
+    case actionTypes.CLEAR_USER_POSTS:
+      return { ...state, createdPost: {}, createPostloading: false, createPostStatus: false }
     default:
       return state
   }

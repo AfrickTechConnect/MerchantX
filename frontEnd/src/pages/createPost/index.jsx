@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useToast } from "@chakra-ui/core"
 import Header from "../../components/header"
-import { createUserPosts } from "../../../actions"
+import { createUserPosts, clearUserPosts } from "../../../actions"
 import Input from "../../components/Input"
 import TextArea from "../../components/textarea"
 import Button from "../../components/button"
@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom"
 import fields from "./fields"
 import { connect } from "react-redux"
 
-const CreatePost = ({ createPostRequest, post }) => {
+const CreatePost = ({ createPostRequest, clearUserPosts, post }) => {
   let history = useHistory()
   const { createdPost, createPostStatus, createPostloading } = post
   const [formFields, setFormFields] = useState({ title: "", description: "" })
@@ -63,6 +63,7 @@ const CreatePost = ({ createPostRequest, post }) => {
         position: "top",
       })
       if (createPostStatus) {
+        clearUserPosts()
         history.push("/")
       }
     }
@@ -144,6 +145,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   createPostRequest: (payload) => dispatch(createUserPosts(payload)),
+  clearUserPosts: () => dispatch(clearUserPosts()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePost)

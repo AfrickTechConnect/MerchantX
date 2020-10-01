@@ -1,10 +1,11 @@
 import React, { useState, Fragment } from "react"
 import Navbar from "../Navbar"
 import Post from "../../pages/allpost"
+import Follow from "../../components/addFriend"
 import "./index.css"
 
 const UserDetails = ({ firstname, email, lastname, followingsCount, followersCount }) => {
-  const [post, setPost] = useState(false)
+  const [post, setPost] = useState(true)
   const [following, setFollowing] = useState(false)
   const [follower, setFollower] = useState(false)
   const [follow, setFollow] = useState(false)
@@ -97,6 +98,7 @@ const UserDetails = ({ firstname, email, lastname, followingsCount, followersCou
         {post && <Post />}
         {following && <div>following</div>}
         {follower && <div>follower</div>}
+        {follow && <Follow />}
       </Fragment>
     </div>
   )

@@ -33,7 +33,7 @@ class Followers {
       const userThatWantsToFollow = await User.findById(id);
       const userToBeFollowed = await User.findByEmail(username);
       const error = Followers.canFollowOrUnfollow(userToBeFollowed, id);
-      if (error) return serverResponse(res, error.status, error.message);
+      if (error) return serverResponse(res, error.status, error);
       const follower = await UserFollower.findOrCreate({
         where: {
           userId: userToBeFollowed.id,
@@ -47,7 +47,7 @@ class Followers {
       );
 
       return serverResponse(res, 200, {
-        following: { message: 'followed successfully', data: dataValues }
+        data: { message: 'followed successfully', follow: dataValues }
       });
     } catch (error) {
       return serverError(req, res, error);
@@ -72,7 +72,7 @@ class Followers {
       const userThatWantsToUnfollow = await User.findById(id);
       const userToBeUnfollowed = await User.findByEmail(username);
       const error = Followers.canFollowOrUnfollow(userToBeUnfollowed, id);
-      if (error) return serverResponse(res, error.status, error.message);
+      if (error) return serverResponse(res, error.status, { data: { message: error.message } });
       await UserFollower.destroy({
         where: {
           userId: userToBeUnfollowed.id,
@@ -107,12 +107,12 @@ class Followers {
    */
   static canFollowOrUnfollow(user, id) {
     if (!user) {
-      return { status: 404, message: { error: 'user not found' } };
+      return { status: 404, data: { message: 'user not found' } };
     }
     if (id === user.id) {
       return {
         status: 409,
-        message: { message: 'user cannot perform this action' }
+        data: { message: 'user cannot perform this action' }
       };
     }
     return false;

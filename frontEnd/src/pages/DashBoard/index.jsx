@@ -1,9 +1,11 @@
 import React, { Fragment } from "react"
-import { Image, Modal } from "@chakra-ui/core"
+import { Image, Modal, Box } from "@chakra-ui/core"
+import { AiOutlineHome } from "react-icons/ai"
+import { RiAdminLine } from "react-icons/ri"
+import { BiPlus } from "react-icons/bi"
 import { connect } from "react-redux"
 import UserDetails from "../../components/userDetail"
 import { Link } from "react-router-dom"
-import { IconButton, Icon } from "@chakra-ui/core"
 import "./index.css"
 
 const DashBoard = ({ data }) => {
@@ -14,14 +16,27 @@ const DashBoard = ({ data }) => {
     lastname,
     followingsCount,
     followersCount,
+    type,
   } = data.UserData.user
   return (
     <section className="dashboard__container">
-      <div>
+      <div className="dashboard__sideNav">
         <Image rounded="full" size="100px" src={avatarUrl} alt="Profile pix" />
         <div className="icon_container">
           <Link to="/post">
-            <Icon name="add" size="32px" />
+            <Box as={BiPlus} size="36px" />
+          </Link>
+        </div>
+        <div className="icon_container">
+          {type === "admin" && (
+            <Link to="/admin">
+              <Box as={RiAdminLine} size="32px" />
+            </Link>
+          )}
+        </div>
+        <div className="icon_container">
+          <Link to="/explore">
+            <Box as={AiOutlineHome} size="32px" />
           </Link>
         </div>
       </div>

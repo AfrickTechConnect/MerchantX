@@ -24,7 +24,6 @@ export const getUserFollows = (value) => async (dispatch) => {
   let data
   dispatch({ type: types.GET_USER_FOLLOW_REQUEST })
   try {
-    console.log(value, "values to be dispatched")
     const response = await asyncRequest("get", `/api/v1/follow/followings/?sort=${value}`, null)
     const data = response.data
     dispatch({

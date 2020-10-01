@@ -24,7 +24,7 @@
   "keywords": [
     "react"
   ],
-  "author": "Kelechi Uchegbu, Adeyemi Adekorede",
+  "author": "Adeyemi Adekorede",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/afrokoder/dfwebsite/issues"
@@ -51,6 +51,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.8.6",
     "react-fontawesome": "^1.7.1",
+    "react-icons": "^3.11.0",
     "react-particles-js": "^3.3.0",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.1.2",

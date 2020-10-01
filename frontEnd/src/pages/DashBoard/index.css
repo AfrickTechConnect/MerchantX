@@ -8,7 +8,7 @@
   display: flex;
   margin-top: 4rem;
   cursor: pointer;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .dashboard__frag {
@@ -28,6 +28,32 @@
     justify-content: start;
   }
 }
+.admin__text {
+  margin-top: 0.5rem;
+  padding: 0rem;
+}
+.dashboard__sideNav {
+  display: flex;
+  flex-direction: column;
+}
 
-@media screen and (max-width: 610px) {
+.admin__logo {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 1.6rem;
+}
+@media screen and (min-width: 700px) {
+  .admin__text {
+    font-size: 1rem;
+    width: auto;
+  }
+  .admin__logo {
+    margin-top: 2rem;
+  }
+}
+@media screen and (max-width: 680px) {
+  .dashboard__sideNav {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
 }

@@ -7,6 +7,7 @@ const userAttributes = [
   'id',
   'firstname',
   'lastname',
+  'avatarUrl',
   'email'
 ];
 

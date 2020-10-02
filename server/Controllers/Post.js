@@ -165,6 +165,7 @@ class Posts {
               'id',
               'firstname',
               'lastname',
+              'email',
               'avatarUrl'
             ]
           },

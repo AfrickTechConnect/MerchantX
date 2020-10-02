@@ -17,7 +17,7 @@ const AllPost = ({ posts, getPostsRequest }) => {
       <div>
         {postsStatus &&
           UserPosts.data.posts.map((post, key) => {
-            return <Post key={key} post={post} />
+            return <Post type="users" key={key} post={post} />
           })}
       </div>
     </>

@@ -150,13 +150,13 @@ class Posts {
      */
   static async AllPosts(req, res) {
     try {
-      const { offset, limit } = paginationValues(req.query);
       const {
         page, pageItem
       } = req.query;
       let allPosts = await Post.findAndCountAll({
-        offset,
-        limit,
+        order: [
+          ['id', 'DESC'],
+        ],
         include: [
           {
             model: models.User,
@@ -187,17 +187,12 @@ class Posts {
         ]
       });
       const { count } = allPosts;
-      const { totalPages, itemsOnPage, parsedPage } = pageCounter(count, page, pageItem);
       allPosts = {
         total: count,
-        totalPages,
-        itemsOnPage,
-        parsedPage,
         data: allPosts.rows
       };
       serverResponse(res, 200, allPosts);
     } catch (error) {
-      console.log(error, 'this is the error>>>>');
       return res.status(500).json({ message: 'failed to get all post' });
     }
   }

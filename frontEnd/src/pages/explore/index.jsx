@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, Fragment } from "react"
 import { getAllPosts } from "../../../actions"
 import { connect } from "react-redux"
 import Loader from "../../components/spinner"
@@ -12,15 +12,18 @@ const Explore = ({ explore, getAllPosts }) => {
     getAllPosts()
   }, [])
   return (
-    <div className="dashboard__container">
-      {loading && <Loader />}
-      <div>
-        {postsStatus &&
-          UserPosts.data.map((post, key) => {
-            return <Post key={key} post={post} />
-          })}
+    <Fragment>
+      <h1 className="explore__container explore">EXPLORE</h1>
+      <div className="dashboard__container">
+        {loading && <Loader />}
+        <div>
+          {postsStatus &&
+            UserPosts.data.map((post, key) => {
+              return <Post key={key} post={post} type="explore" />
+            })}
+        </div>
       </div>
-    </div>
+    </Fragment>
   )
 }
 

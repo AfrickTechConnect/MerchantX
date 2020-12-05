@@ -18,7 +18,7 @@ const makeLowerCase = (value) => {
 export default class UserValidator {
   /**
   * Firstname and lastname validator
-  * @param {string} name
+  * @param {string} 
   * @returns {function} call to a Check API middleware
   * @memberof Validation
   */
@@ -52,6 +52,44 @@ export default class UserValidator {
       .withMessage('password cannot contain whitespace');
   }
 
+    /**
+  * identificationUrl validator
+  * @returns {function} call to a Check API middleware
+  * @memberof Validation
+  */
+ static checkIdentificationUrl() {
+  return CommonValidator.genericCheck('identificationUrl')
+    .isLength({ min: 6 })
+    .withMessage('identificationUrl must be at least 6 characters')
+    .not()
+    .matches(/\s/, 'g')
+    .withMessage('identificationUrl cannot contain whitespace');
+}
+
+    /**
+  * address validator
+  * @returns {function} call to a Check API middleware
+  * @memberof Validation
+  */
+ static checkAddress() {
+  return CommonValidator.genericCheck('address')
+    .isLength({ min: 2 })
+    .withMessage('address must be at least 6 characters')
+}
+
+    /**
+  * proof of address validator
+  * @returns {function} call to a Check API middleware
+  * @memberof Validation
+  */
+ static checkAddressProof() {
+  return CommonValidator.genericCheck('proofAddress')
+    .isLength({ min: 6 })
+    .withMessage('proofAddress must be at least 6 characters')
+}
+
+
+
   /**
    * Generic Number validator
    * @param {string} item
@@ -76,6 +114,9 @@ export default class UserValidator {
       UserValidator.checkName('firstname'),
       UserValidator.checkName('lastname'),
       UserValidator.checkPassword(),
+      UserValidator.checkAddressProof(),
+      UserValidator.checkAddress(),
+      UserValidator.checkIdentificationUrl(),
       checkForErrors,
       emptyBody
     ];

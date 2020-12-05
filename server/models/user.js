@@ -1,85 +1,75 @@
-/* eslint-disable func-names */
+import uuid from 'uuid/v4';
+
 export default (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    firstname: DataTypes.STRING,
-    lastname: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    type: {
-      type: DataTypes.TEXT,
-      defaultValue: 'user'
-    },
-    avatarUrl: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      defaultValue:
-        'https://res.cloudinary.com/kaytronics/image/upload/v1601414891/profile-placeholder_ssulwg.png',
-      validate: {
-        isUrl: {
-          msg: 'avatar url format is invalid'
-        }
-      }
-    },
-    followingsCount: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: 0,
-      validate: {
-        isInt: {
-          msg: 'user followings count must be an integer'
-        },
-        min: {
-          args: [0],
-          msg: 'user followings count must not be less than 0'
-        }
-      }
-    },
-    followersCount: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: 0,
-      validate: {
-        isInt: {
-          msg: 'user followers count must be an integer'
-        },
-        min: {
-          args: [0],
-          msg: 'user followers count must not be less than 0'
-        }
+  const User = sequelize.define(
+    'User',
+    {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV1
+      },
+      firstname: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      type: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      lastname: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false
+      },
+      identificationUrl: {
+        type: DataTypes.STRING,
+      },
+      profilePictureUrl: {
+        type: DataTypes.STRING,
+      },
+      address: {
+        type: DataTypes.STRING,
+      },
+      proofAddress: {
+        type: DataTypes.STRING,
+      },
+      password: {
+        type: DataTypes.STRING,
       }
     }
-  }, {});
-  User.associate = function (models) {
-    User.hasMany(models.UserFollower, {
-      foreignKey: 'userId',
-      onDelete: 'CASCADE',
-      as: 'AllFollowers'
+  );
+  User.associate = (models) => {
+    User.hasOne(models.Investor, {
+      foreignKey: 'userId'
     });
-    User.hasMany(models.UserFollower, {
-      foreignKey: 'followerId',
-      onDelete: 'CASCADE',
-      as: 'AllFollowings'
+    User.hasOne(models.Merchant, {
+      foreignKey: 'userId'
     });
   };
-
   User.findByEmail = async (email) => {
-    const user = await User.findOne({ where: { email } });
-    if (user) return user;
+    try{
+      const user = await User.findOne({ where: { email } });
+      if (user) return user.dataValues;
+      return null;
+    } catch(e) {
+      console.log(e, 'error>>>>')
+    }
+
+  };
+  User.findById = async (id, models) => {
+    const user = await User.findOne({
+      where: { id },
+      attributes: { exclude: ['password'] }
+    });
+    if (user) return user.dataValues;
     return null;
   };
-
-  User.findById = async (id) => {
-    const user = await User.findOne({ where: { id } });
-    if (user) return user;
-    return null;
-  };
-
-  User.updatePasswordById = async (id, newPassword) => {
-    const user = await User.update(
-      { password: newPassword },
-      { where: { id } }
-    );
-    return user[0];
-  };
+  User.beforeCreate(user => user.id = uuid());
   return User;
 };

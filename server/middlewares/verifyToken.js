@@ -15,12 +15,13 @@ const verifyToken = async (request, response, next) => {
   try {
     const token = request.headers.authorization || request.params.token;
     if (!token) {
-      return serverResponse(response, 401, { message: 'no token provided' });
+      return serverResponse(request, response, 401, { message: 'no token provided' });
     }
     const decoded = await jwt.verify(token, process.env.JWT_KEY);
     const user = await User.findById(decoded.id);
+    console.log(user, 'this is the user>>>>')
     if (!user) {
-      return serverResponse(response, 404, {
+      return serverResponse(request, response, 404, {
         message: 'user does not exist'
       });
     }

@@ -1,7 +1,0 @@
-node_modules
-build
-coverage
-.env
-tests_output
-chromedriver.log
-

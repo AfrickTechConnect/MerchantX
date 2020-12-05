@@ -25,22 +25,24 @@ class Users {
   static async create(req, res) {
     try {
       if (await User.findByEmail(req.body.email)) {
-        return serverResponse(res, 409, {
+        return serverResponse(req, res, 409, {
           message: 'email has already been taken'
         });
       }
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       const user = await User.create({
         ...req.body,
+        type: 'user',
         password: hashedPassword
       });
       const { id } = user;
       delete user.password;
       const token = generateToken({ id }, '24h');
       res.set('Authorization', token);
-      return serverResponse(res, 201, { message: 'successful', data: { ...user.dataValues, token } });
+      return serverResponse(req, res, 201, { message: 'sign up successful', ...user.dataValues, token });
     } catch (error) {
-      return res.status(500).json({ error });
+      console.log(error, 'this is the error')
+      return serverError(res);
     }
   }
 
@@ -57,17 +59,18 @@ class Users {
       let verifyPassword;
       if (user) { verifyPassword = bcrypt.compareSync(password, user.password); }
       if (!user || !verifyPassword) {
-        return serverResponse(response, 401, { message: 'username or password is incorrect' });
+        return serverResponse(request, response, 401, { message: 'username or password is incorrect' });
       }
       const { id, dataValues } = user;
       const token = generateToken({ id }, '24h');
       delete dataValues.password;
-      return serverResponse(response, 200, {
-        message: 'login successful',
-        data: { ...dataValues, token }
-      });
+      return serverResponse(request, response, 200,
+        { message: 'sign in successful' , 
+        ...dataValues, token }
+      );
     } catch (error) {
-      return serverError(request, response, error);
+      console.log(error, 'this is the error>>>')
+      return serverError(response);
     }
   }
 
@@ -81,13 +84,13 @@ class Users {
     try {
       const { user } = request;
       const { token } = response.locals;
-      delete user.dataValues.password;
-      return serverResponse(response, 200, {
-        user: { ...user.dataValues },
+      return serverResponse(request, response, 200, {
+        message: 'user gotten successfully',
+        ...user,
         token
       });
     } catch (error) {
-      return serverError(request, response, error);
+      return serverError(response);
     }
   }
 }

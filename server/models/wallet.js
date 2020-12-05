@@ -8,9 +8,9 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1
     },
-    balance: DataTypes.DECIMAL(22, 2),
-    cummulativeGain: DataTypes.DECIMAL(22, 2),
-    cummulativeLoss: DataTypes.DECIMAL(22, 2),
+    balance: DataTypes.DECIMAL(10, 2),
+    cummulativeGain: DataTypes.DECIMAL(10, 2),
+    cummulativeLoss: DataTypes.DECIMAL(10, 2),
   }, {});
   Wallet.associate = (models) => {
     Wallet.belongsTo(models.Investor, {

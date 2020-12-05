@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
     Merchant.belongsTo(models.User, {
       foreignKey: 'userId'
     });
+    Merchant.hasMany(models.Investment, {
+      foreignKey: 'merchantId'
+    });
     Merchant.belongsToMany(models.Investor, {
       foreignKey: 'merchantId',
       otherKey: 'investorId',

@@ -1,3 +1,4 @@
+import Decimal from 'decimal.js';
 import models from '../models';
 import {
   serverResponse,
@@ -5,7 +6,7 @@ import {
 }
   from '../helpers';
 
-const { Merchant } = models;
+const { Merchant, Investment } = models;
 /**
  * @export
  * @class Users
@@ -30,6 +31,7 @@ class Merchants {
       }
       const { cacDocumentUrl, attachmentPitchUrl } = req.body;
       const merchant = await Merchant.create({
+        name: `${user.firstname} ${user.lastname}`,
         cacDocumentUrl,
         attachementPitch: attachmentPitchUrl,
         creditScore: 0,
@@ -81,6 +83,48 @@ class Merchants {
       message: 'merchant gotten successfully',
       Merchant: all
     });
+  }
+
+  /**
+   * Method for handling signin route(POST api/v1/auth/login)
+   * @param {object} request - the request object
+   * @param {object} response  - object
+   * @return { json }  - the response json
+   */
+  static async fundPool(request, response) {
+    try {
+      const {
+        user
+      } = request;
+
+      const merchant = await Merchant.findOne({
+        where: {
+          userId: user.id
+        },
+        include: [
+          {
+            model: models.Investment,
+          }
+        ]
+      });
+      if (!merchant) {
+        return serverResponse(request, response, 404, { message: 'merchant does not exits' });
+      }
+      let totalFunding = new Decimal('0.00');
+
+      merchant.dataValues.Investments.map((x) => {
+        const currentAmount = new Decimal(x.amount);
+        totalFunding = totalFunding.plus(currentAmount);
+      });
+
+      return serverResponse(request, response, 200, {
+        message: 'all Investments gotten successfully',
+        totalFunding,
+        Investments: merchant.dataValues.Investments
+      });
+    } catch (e) {
+      console.log(e, 'error>>><<<');
+    }
   }
 }
 

@@ -7,6 +7,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID
       },
+      name: {
+        type: Sequelize.STRING,
+      },
       cacDocumentUrl: {
         type: Sequelize.STRING,
       },

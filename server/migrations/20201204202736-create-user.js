@@ -38,7 +38,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       proofAddress: {
-        type: Sequelize.STRING,  
+        type: Sequelize.STRING, 
       },
       createdAt: {
         allowNull: false,

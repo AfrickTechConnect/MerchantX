@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV1
       },
+      name: {
+        type: DataTypes.STRING,
+      },
       cacDocumentUrl: {
         type: DataTypes.STRING,
       },

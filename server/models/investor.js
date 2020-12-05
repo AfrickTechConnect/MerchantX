@@ -16,6 +16,9 @@ export default (sequelize, DataTypes) => {
     Investor.belongsTo(models.User, {
       foreignKey: 'userId'
     });
+    Investor.hasOne(models.Wallet, {
+      foreignKey: 'investorId'
+    });
     Investor.belongsToMany(models.Merchant, {
       foreignKey: 'investorId',
       otherKey: 'merchantId',

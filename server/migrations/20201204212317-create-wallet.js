@@ -6,6 +6,13 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.UUID
     },
+    investorId: {
+      type: Sequelize.UUID,
+      references: {
+        model: 'Investors',
+        key: 'id'
+      }
+    },
     balance: {
       type: Sequelize.DECIMAL(22, 2)
     },
@@ -24,5 +31,5 @@ module.exports = {
       type: Sequelize.DATE
     }
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Wallets')
+  down: queryInterface => queryInterface.dropTable('Wallets')
 };

@@ -6,7 +6,7 @@ import {
 }
   from '../helpers';
 
-const { Investor } = models;
+const { Investor, Wallet } = models;
 /**
  * @export
  * @class Users
@@ -30,11 +30,19 @@ class Investors {
         });
       }
       const { govtId, investmentLimit } = req.body;
+
       const investor = await Investor.create({
         investmentLimit,
         govtId,
         userId: user.id
       });
+      const wallet = await Wallet.create({
+        investorId: investor.dataValues.id,
+        balance: 0,
+        cummulativeGain: 0,
+        cummulativeLoss: 0
+      });
+
       return serverResponse(req, res, 201, { message: 'investor added successfully', ...investor.dataValues });
     } catch (error) {
       return serverError(res);

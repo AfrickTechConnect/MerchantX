@@ -7,6 +7,5 @@ A REST API BACKEND  FOR Merchant app v1, EXPRESS AND SEQUELIZE.
 
 - User can register and login
 - user can get their details
-
-
+- credit rating functionality
 

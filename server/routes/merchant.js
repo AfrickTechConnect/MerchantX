@@ -8,5 +8,6 @@ route.post('/create', MerchantValidator.createMerchantValidation(), verifyToken,
 route.get('/all', Merchant.getAll);
 route.patch('/rate', MerchantValidator.rateMerchantValidation(), verifyToken, Merchant.rate);
 route.get('/fundpool', verifyToken, Merchant.fundPool);
+route.get('/', Merchant.getAllMerchantCount);
 
 export default route;

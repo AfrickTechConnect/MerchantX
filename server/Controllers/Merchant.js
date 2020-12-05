@@ -62,7 +62,7 @@ class Merchants {
           message: 'failed to update merchant',
         });
       }
-      return serverResponse(request, response, 400, {
+      return serverResponse(request, response, 200, {
         message: 'merchant updated successfully',
       });
     } catch (error) {
@@ -77,12 +77,16 @@ class Merchants {
    * @return { json }  - the response json
    */
   static async getAll(request, response) {
-    const merchant = await Merchant.findAndCountAll();
-    const all = merchant.rows.map(x => x.dataValues);
-    return serverResponse(request, response, 200, {
-      message: 'merchant gotten successfully',
-      Merchant: all
-    });
+    try {
+      const merchant = await Merchant.findAndCountAll();
+      const all = merchant.rows.map(x => x.dataValues);
+      return serverResponse(request, response, 200, {
+        message: 'merchant gotten successfully',
+        Merchant: all
+      });
+    } catch (e) {
+      return serverError(response);
+    }
   }
 
   /**
@@ -123,7 +127,28 @@ class Merchants {
         Investments: merchant.dataValues.Investments
       });
     } catch (e) {
-      console.log(e, 'error>>><<<');
+      return serverError(response);
+    }
+  }
+
+  /**
+     * @name Investment
+     * @async
+     * @static
+     * @memberof Investor
+     * @param {Object} request express request object
+     * @param {Object} response express response object
+     * @returns {JSON} JSON object with details of new user
+     */
+  static async getAllMerchantCount(request, response) {
+    try {
+      const merchantCount = await Merchant.count();
+      return serverResponse(request, response, 200, {
+        message: 'total Investors',
+        merchant: merchantCount
+      });
+    } catch (e) {
+      return serverError(response);
     }
   }
 }

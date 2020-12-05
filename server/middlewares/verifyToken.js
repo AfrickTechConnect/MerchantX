@@ -18,8 +18,7 @@ const verifyToken = async (request, response, next) => {
       return serverResponse(request, response, 401, { message: 'no token provided' });
     }
     const decoded = await jwt.verify(token, process.env.JWT_KEY);
-    const user = await User.findById(decoded.id);
-    console.log(user, 'this is the user>>>>')
+    const user = await User.findById(decoded.id, models);
     if (!user) {
       return serverResponse(request, response, 404, {
         message: 'user does not exist'
@@ -29,7 +28,8 @@ const verifyToken = async (request, response, next) => {
     response.locals.token = token;
     next();
   } catch (err) {
-    return serverError(request, response, err.message === 'jwt expired' ? 'kindly login again' : err);
+    console.log(err, 'this is the errror>>>')
+    return serverError(response);
   }
 };
 

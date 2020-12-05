@@ -41,7 +41,6 @@ class Users {
       res.set('Authorization', token);
       return serverResponse(req, res, 201, { message: 'sign up successful', ...user.dataValues, token });
     } catch (error) {
-      console.log(error, 'this is the error')
       return serverError(res);
     }
   }

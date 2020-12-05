@@ -4,9 +4,8 @@ module.exports = {
     return queryInterface.createTable('Investors', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID
       },
       investmentLimit: {
         type: Sequelize.DECIMAL(22, 2)

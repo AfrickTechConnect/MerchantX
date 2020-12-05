@@ -53,23 +53,31 @@ export default (sequelize, DataTypes) => {
     });
   };
   User.findByEmail = async (email) => {
-    try{
+    try {
       const user = await User.findOne({ where: { email } });
       if (user) return user.dataValues;
       return null;
-    } catch(e) {
-      console.log(e, 'error>>>>')
+    } catch (e) {
+      console.log(e, 'this is the error>>>>')
     }
-
   };
   User.findById = async (id, models) => {
     const user = await User.findOne({
       where: { id },
-      attributes: { exclude: ['password'] }
+      attributes: { exclude: ['password'] },
+      include: [
+        {
+          model: models.Merchant,
+        },
+        {
+          model: models.Investor,
+        }
+      ]
     });
     if (user) return user.dataValues;
     return null;
   };
+  // eslint-disable-next-line no-return-assign
   User.beforeCreate(user => user.id = uuid());
   return User;
 };

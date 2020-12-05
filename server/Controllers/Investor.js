@@ -146,37 +146,41 @@ class Investors {
      * @returns {JSON} JSON object with details of new user
      */
   static async Fund(req, res) {
-    const {
-      user, body: {
-        amount
-      }
-    } = req;
-
-    const investor = await Investor.findOne({
-      where: {
-        userId: user.id
-      },
-      include: [
-        {
-          model: models.Wallet,
+    try {
+      const {
+        user, body: {
+          amount
         }
-      ]
-    });
+      } = req;
 
-    if (!investor) {
-      return serverResponse(req, res, 404, { message: 'investor does not exits' });
-    }
-    const newAmount = new Decimal(amount);
-    const totalAmount = newAmount.plus(investor.Wallet.balance);
-    const newWallet = await Wallet.update(
-      { balance: totalAmount },
-      { where: { id: investor.Wallet.id } }
-    );
+      const investor = await Investor.findOne({
+        where: {
+          userId: user.id
+        },
+        include: [
+          {
+            model: models.Wallet,
+          }
+        ]
+      });
 
-    if (!newWallet) {
-      return serverResponse(req, res, 400, { message: 'wallet failed to fund' });
+      if (!investor) {
+        return serverResponse(req, res, 404, { message: 'investor does not exits' });
+      }
+      const newAmount = new Decimal(amount);
+      const totalAmount = newAmount.plus(investor.Wallet.balance);
+      const newWallet = await Wallet.update(
+        { balance: totalAmount },
+        { where: { id: investor.Wallet.id } }
+      );
+
+      if (!newWallet) {
+        return serverResponse(req, res, 400, { message: 'wallet failed to fund' });
+      }
+      return serverResponse(req, res, 201, { message: 'wallet funded successfully', totalAmount });
+    } catch (e) {
+      return serverError(res);
     }
-    return serverResponse(req, res, 201, { message: 'wallet funded successfully', totalAmount });
   }
 
   /**
@@ -189,27 +193,94 @@ class Investors {
      * @returns {JSON} JSON object with details of new user
      */
   static async Investment(request, response) {
-    const {
-      user
-    } = request;
+    try {
+      const {
+        user
+      } = request;
 
-    const investor = await Investor.findOne({
-      where: {
-        userId: user.id
-      },
-      include: [
-        {
-          model: models.Investment,
-        }
-      ]
-    });
-    if (!investor) {
-      return serverResponse(request, response, 404, { message: 'investor does not exits' });
+      const investor = await Investor.findOne({
+        where: {
+          userId: user.id
+        },
+        include: [
+          {
+            model: models.Investment,
+          }
+        ]
+      });
+      if (!investor) {
+        return serverResponse(request, response, 404, { message: 'investor does not exits' });
+      }
+      return serverResponse(request, response, 200, {
+        message: 'all Investments gotten successfully',
+        Investments: investor.dataValues.Investments
+      });
+    } catch (e) {
+      return serverError(res);
     }
-    return serverResponse(request, response, 200, {
-      message: 'all Investments gotten successfully',
-      Investments: investor.dataValues.Investments
-    });
+  }
+
+  /**
+     * @name Investment
+     * @async
+     * @static
+     * @memberof Investor
+     * @param {Object} request express request object
+     * @param {Object} response express response object
+     * @returns {JSON} JSON object with details of new user
+     */
+  static async WalletBalance(request, response) {
+    try {
+      const {
+        user
+      } = request;
+
+      const investor = await Investor.findOne({
+        where: {
+          userId: user.id
+        },
+        include: [
+          {
+            model: models.Wallet,
+          },
+          {
+            model: models.Investment,
+          }
+        ]
+      });
+      if (!investor) {
+        return serverResponse(request, response, 404, { message: 'investor does not exits' });
+      }
+
+      return serverResponse(request, response, 200, {
+        message: 'wallet current balance',
+        balance: investor.dataValues.Wallet.balance,
+        investment: investor.dataValues.Investments.length
+      });
+    } catch (e) {
+      return serverError(res);
+    }
+  }
+
+  /**
+     * @name Investment
+     * @async
+     * @static
+     * @memberof Investor
+     * @param {Object} request express request object
+     * @param {Object} response express response object
+     * @returns {JSON} JSON object with details of new user
+     */
+  static async getAllInvestorsCount(request, response) {
+    try {
+      const investorCount = await Investor.count();
+      return serverResponse(request, response, 200, {
+        message: 'total Investors',
+        investors: investorCount
+      });
+    } catch (e) {
+      return serverError(res);
+    }
   }
 }
 

@@ -5,7 +5,7 @@ import {
 }
   from '../helpers';
 
-const { User, Merchant } = models;
+const { Merchant } = models;
 /**
  * @export
  * @class Users
@@ -51,7 +51,7 @@ class Merchants {
     try {
       const { id, creditScore } = request.body;
       const { user } = request;
-      if (user.type !== 'user') {
+      if (user.type !== 'admin') {
         return serverResponse(request, response, 401, { message: 'user not authorized to perfom this action' });
       }
       const merchant = await Merchant.update({ creditScore }, { where: { id } });
@@ -66,6 +66,21 @@ class Merchants {
     } catch (error) {
       return serverError(response);
     }
+  }
+
+  /**
+   * Method for handling signin route(POST api/v1/auth/login)
+   * @param {object} request - the request object
+   * @param {object} response  - object
+   * @return { json }  - the response json
+   */
+  static async getAll(request, response) {
+    const merchant = await Merchant.findAndCountAll();
+    const all = merchant.rows.map(x => x.dataValues);
+    return serverResponse(request, response, 200, {
+      message: 'merchant gotten successfully',
+      Merchant: all
+    });
   }
 }
 

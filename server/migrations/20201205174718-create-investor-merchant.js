@@ -8,10 +8,6 @@ export default {
       allowNull: false,
       type: Sequelize.UUID
     },
-    investmentId: {
-      allowNull: false,
-      type: Sequelize.UUID,
-    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE
@@ -23,3 +19,4 @@ export default {
   }),
   down: queryInterface => queryInterface.dropTable('InvestorMerchants')
 };
+

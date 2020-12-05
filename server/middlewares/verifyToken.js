@@ -28,7 +28,6 @@ const verifyToken = async (request, response, next) => {
     response.locals.token = token;
     next();
   } catch (err) {
-    console.log(err, 'this is the errror>>>')
     return serverError(response);
   }
 };

@@ -8,19 +8,17 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1
     },
-    amount: DataTypes.DECIMAL(22, 2),
-    date: DataTypes.DATE,
+    amount: DataTypes.DECIMAL(10, 2),
+    date: DataTypes.STRING,
     interestRate: DataTypes.INTEGER,
     investmentType: DataTypes.STRING
   }, {});
   Investment.associate = (models) => {
-    Investment.belongsToMany(models.Investor, {
-      foreignKey: 'investorId',
-      otherKey: 'merchantId',
-      through: 'InvestorMerchants',
-      as: 'merchants',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE'
+    Investment.belongsTo(models.Investor, {
+      foreignKey: 'investorId'
+    });
+    Investment.belongsTo(models.Merchant, {
+      foreignKey: 'merchantId'
     });
   };
 

@@ -8,7 +8,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1
     },
-    investmentLimit: DataTypes.DECIMAL(22, 2),
+    investmentLimit: DataTypes.DECIMAL(10, 2),
     govtId: DataTypes.STRING
   }, {});
 
@@ -17,6 +17,9 @@ export default (sequelize, DataTypes) => {
       foreignKey: 'userId'
     });
     Investor.hasOne(models.Wallet, {
+      foreignKey: 'investorId'
+    });
+    Investor.hasMany(models.Investment, {
       foreignKey: 'investorId'
     });
     Investor.belongsToMany(models.Merchant, {

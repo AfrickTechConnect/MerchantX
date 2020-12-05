@@ -4,8 +4,8 @@ import { MerchantValidator, verifyToken } from '../middlewares';
 
 const route = express.Router();
 
-route.post('/add', MerchantValidator.createMerchantValidation(), verifyToken, Merchant.create);
-//route.get('/details', Merchant.getDetails);
+route.post('/create', MerchantValidator.createMerchantValidation(), verifyToken, Merchant.create);
+route.get('/all', Merchant.getAll);
 route.patch('/rate', MerchantValidator.rateMerchantValidation(), verifyToken, Merchant.rate);
 
 export default route;

@@ -64,11 +64,12 @@ class Users {
       const token = generateToken({ id }, '24h');
       delete dataValues.password;
       return serverResponse(request, response, 200,
-        { message: 'sign in successful' , 
-        ...dataValues, token }
-      );
+        {
+          message: 'sign in successful',
+          ...dataValues,
+          token
+        });
     } catch (error) {
-      console.log(error, 'this is the error>>>')
       return serverError(response);
     }
   }

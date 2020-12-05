@@ -14,13 +14,13 @@ module.exports = {
       }
     },
     balance: {
-      type: Sequelize.DECIMAL(22, 2)
+      type: Sequelize.DECIMAL(10, 2)
     },
     cummulativeGain: {
-      type: Sequelize.DECIMAL(22, 2)
+      type: Sequelize.DECIMAL(10, 2)
     },
     cummulativeLoss: {
-      type: Sequelize.DECIMAL(22, 2)
+      type: Sequelize.DECIMAL(10, 2)
     },
     createdAt: {
       allowNull: false,

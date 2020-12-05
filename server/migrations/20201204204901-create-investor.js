@@ -8,7 +8,7 @@ module.exports = {
         type: Sequelize.UUID
       },
       investmentLimit: {
-        type: Sequelize.DECIMAL(22, 2)
+        type: Sequelize.DECIMAL(10, 2)
       },
       userId: {
         type: Sequelize.UUID,
@@ -30,7 +30,7 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable('Investors');
   }
 };

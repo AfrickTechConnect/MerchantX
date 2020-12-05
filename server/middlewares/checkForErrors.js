@@ -14,7 +14,13 @@ export default (request, response, next) => {
   const validationResults = validationResult(request).array({ onlyFirstError: true });
   validationResults.forEach(resultObject => errorFormatter(resultObject));
   if (Object.keys(errors).length > 0) {
-      response.status(400).json({ ...errors });
+    response.status(400).json({
+      MERCHANTX: 'v1',
+      data: {
+        message: 'invalid inputs',
+        ...errors.body
+      }
+    });
   } else {
     next();
   }

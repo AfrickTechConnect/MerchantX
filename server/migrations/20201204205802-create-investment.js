@@ -1,35 +1,45 @@
-'use strict';
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Investments', {
-      id: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.UUID
-      },
-      amount: {
-        type: Sequelize.DECIMAL(22, 2)
-      },
-      date: {
-        type: Sequelize.DATE
-      },
-      interestRate: {
-        type: Sequelize.INTEGER
-      },
-      investmentType: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Investments', {
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: Sequelize.UUID
+    },
+    amount: {
+      type: Sequelize.DECIMAL(10, 2)
+    },
+    date: {
+      type: Sequelize.STRING
+    },
+    investorId: {
+      type: Sequelize.UUID,
+      references: {
+        model: 'Investors',
+        key: 'id'
       }
-    });
-  },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Investments');
-  }
+    },
+    merchantId: {
+      type: Sequelize.UUID,
+      references: {
+        model: 'Merchants',
+        key: 'id'
+      }
+    },
+    interestRate: {
+      type: Sequelize.INTEGER
+    },
+    investmentType: {
+      type: Sequelize.STRING
+    },
+    createdAt: {
+      allowNull: false,
+      type: Sequelize.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: Sequelize.DATE
+    }
+  }),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Investments')
 };

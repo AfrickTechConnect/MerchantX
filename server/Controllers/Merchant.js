@@ -123,6 +123,7 @@ class Merchants {
 
       return serverResponse(request, response, 200, {
         message: 'all Investments gotten successfully',
+        creditScore: merchant.dataValues.creditScore,
         totalFunding,
         Investments: merchant.dataValues.Investments
       });
